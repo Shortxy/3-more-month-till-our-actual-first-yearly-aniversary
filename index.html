@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary</title>
+    <style>
+        /* Reset and layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px;
+            
+            /* Ultra-slow, deep vertical gradient transition */
+            background: linear-gradient(180deg, #2b004f, #910543, #4a0061, #d61c5c);
+            background-size: 100% 400%;
+            animation: gradientVertical 45s ease-in-out infinite;
+        }
+
+        @keyframes gradientVertical {
+            0% { background-position: 50% 0%; }
+            50% { background-position: 50% 100%; }
+            100% { background-position: 50% 0%; }
+        }
+
+        /* Floating Hearts Container */
+        .heart-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1; /* Sits completely behind the glass card */
+        }
+
+        /* Heart Particle Styling */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 20px;
+            pointer-events: none;
+            animation: floatHeart 6s linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(105vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 3D Liquid Glass Card Container */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(30px) saturate(130%);
+            -webkit-backdrop-filter: blur(30px) saturate(130%);
+            border-radius: 28px;
+            
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            border-left: 1px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            
+            padding: 50px 40px;
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            max-height: 85vh;
+            overflow-y: auto; /* Adds a clean scroll inside the glass card if needed on small screens */
+            
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45), 
+                        inset 0 15px 30px rgba(255, 255, 255, 0.12);
+            
+            transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
+            transform-style: preserve-3d;
+            position: relative;
+            transform: rotateY(0deg) rotateX(0deg);
+            z-index: 10; /* High z-index forces the invisible border over the hearts */
+        }
+
+        /* Custom scrollbar styling inside the card for a seamless look */
+        .glass-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .glass-card::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Fluid Glossy Text Settings */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            
+            transform: translateZ(60px);
+            
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            
+            background: linear-gradient(180deg, #ffffff 45%, rgba(255, 255, 255, 0.25) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 400;
+            margin-bottom: 20px;
+            transform: translateZ(35px);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hearts-line {
+            color: #ff4081;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            letter-spacing: 2px;
+            transform: translateZ(40px);
+        }
+
+        .signature {
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            transform: translateZ(50px);
+        }
+
+        .card-shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 60%);
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            transition: background 0.35s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Target layer for background heart generator -->
+    <div class="heart-container" id="heartContainer"></div>
+
+    <div class="glass-card" id="card">
+        <div class="card-shine" id="shine"></div>
+        <h1>Happy Anniversary</h1>
+        
+        <p>
+            Happy anniversary my baby, I know it's been a very long time since it's been our last my baby, but here we are together and strong, we had many ups and down together my baby princess but don't you fear my baby everything will all be better again my princess you and I are locked in, happy and loving together to the max.
+        </p>
+        
+        <p>
+            And I know my baby I have made many stupid mistakes, mistakes that hurt both of us but we've made it back my baby together my princess, much baby, my baby come here my little overthinker, stressing over littlest of things but I know it means so much to you my princess.
+        </p>
+        
+        <p>
+            I can't wait for our distance to be over so we can actually live together my princess, ugh I can't wait for it my babyyyyy I really can't wait my baby, come here my baby let's sit together and relax my baby and have fun together on our beloved day and let's not try to fuck up anything that we do together bahahahahahhaah get it yeah I'm just joking come here my silly my cute little cherry blossom mwah I love you so much my baby girl mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah mwah
+        </p>
+
+        <div class="hearts-line">
+            ♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️
+        </div>
+        
+        <p>
+            And once again my baby happy anniversary my babyhyyyyyyy
+        </p>
+        
+        <p class="signature">
+            -From your hubby
+        </p>
+    </div>
+
+    <script>
+        const card = document.getElementById('card');
+        const shine = document.getElementById('shine');
+        const heartContainer = document.getElementById('heartContainer');
+
+        // Mouse move parallax interaction
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            
+            const cardWidth = rect.width;
+            const cardHeight = rect.height;
+            
+            const mouseX = e.clientX - rect.left - (cardWidth / 2);
+            const mouseY = e.clientY - rect.top - (cardHeight / 2);
+            
+            const angleX = (mouseY / (cardHeight / 2)) * 12;
+            const angleY = (mouseX / (cardWidth / 2)) * 12;
+            
+            card.style.transform = `rotateX(${-angleX}deg) rotateY(${angleY}deg)`;
+            
+            const lightX = e.clientX - rect.left;
+            const lightY = e.clientY - rect.top;
+            shine.style.background = `radial-gradient(circle at ${lightX}px ${lightY}px, rgba(255,255,255,0.18) 0%, transparent 65%)`;
+        });
+
+        // Mouse leave return default position
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            shine.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 60%)`;
+        });
+
+        // Dynamic Heart Spawner Script
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            
+            // Randomize screen exit pathways
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Randomize sizing metrics
+            const size = Math.random() * 15 + 10; 
+            heart.style.fontSize = size + 'px';
+            
+            // Randomize slow floating travel speed
+            const duration = Math.random() * 4 + 5; 
+            heart.style.animationDuration = duration + 's';
+            
+            // Apply slight color tint mix transparency variances
+            const opacities = [0.2, 0.3, 0.4, 0.5];
+            heart.style.color = `rgba(255, 182, 193, ${opacities[Math.floor(Math.random() * opacities.length)]})`;
+
+            heartContainer.appendChild(heart);
+
+            // Housekeeping cleanup old out-of-frame heart elements
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Ticks heart spawns slowly every 300 milliseconds
+        setInterval(createHeart, 300);
+    </script>
+
+</body>
+</html>
